@@ -1,0 +1,36 @@
+{% import "_includes/forms.twig" as forms %}
+
+{% if config.type == 'text' %}
+    {{ forms.textField(config) }}
+{% elseif config.type == 'select' %}
+    {{ forms.selectField(config) }}
+{% elseif config.type == 'table' %}
+    {{ forms.editableTableField({
+        addRowLabel: "Add row",
+        cols: {
+            enabled: {
+                type: 'checkbox',
+                thin: true,
+                checked: true,
+            },
+            name: {
+                type: 'singleline',
+                heading: "Name",
+                placeholder: "",
+                code: true,
+            },
+            value: {
+                type: 'singleline',
+                heading: "Value",
+                placeholder: "",
+                code: true,
+            }
+        },
+        defaultValues: {
+            enabled: true,
+        },
+        allowAdd: true,
+        allowReorder: true,
+        allowDelete: true,
+    }|merge(config)) }}
+{% endif %}
